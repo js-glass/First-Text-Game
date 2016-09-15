@@ -3,6 +3,7 @@
 all_places = []
 
 class place(object):
+	"""	Base Class for all locations		"""
 	def __init__(self, name, descrip, city, x, y):
 		self.name = name
 		self.descrip = descrip

@@ -3,6 +3,7 @@
 import random, events, player, time
 
 def rest(player):
+	"""		Used in Inns and othe places for rest	"""
 	if player.hp < 100:
 		print("========\nYour health has been restored.\n========")
 		player.hp = player.hp + (100 - player.hp)
@@ -10,6 +11,10 @@ def rest(player):
 		print("========\nYou rest, but your health is already full.\n========")
 	
 def travel_chance(nsew):
+	"""			REDO THIS ENTIRE FUNCTION!			"""
+
+
+
 	chance = random.randint(0, 1000)
 	if chance < 665:
 		time.sleep(1)

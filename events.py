@@ -1,6 +1,6 @@
 '''===		Events		==='''
 
-import enemies, items, world, random, player, time, sys
+import enemies, items, world, random, player, time, actions, sys
 
 player = player.hero
 
@@ -185,7 +185,6 @@ def corpse():
 	else:
 		print("You didn't choose any possible option.")
 		
-	
 def orcs():
 	print("""
 	You see a few big dumb orcs travelling the opposite direction of you.
@@ -263,20 +262,77 @@ def demon():
 		print("You have aquired a Vial of Demon's Blood!")
 	elif choice_demon == 3:
 		print(enemies.demon_1.inquire())
+		demon()
 	else:
 		print("You did not choose a valid option.")
 		demon()
 	
 def rest_stop():						#HAVE NOT ADDED TO LIST! NEED TO!
-	print("rest_stop")
-	
+	print("""
+	You see a small group of people gathered around a campfire.
+	They beckon you over to them offering food and rest.
+	""")
+	print("	1)	Sit at campfire and rest.")
+	print("	2)	Continue on your journey.")
+	print("/n/n What would you like to do?")
+	choice_rest = int(input())
+	if choice_rest == 1:
+		actions.rest(player)
+		print("You wake fully rested and contine on your path.")
+	elif choice_rest == 2:
+		pass
+	else:
+		print("You did not choose a valid option.")
+		rest_stop()
 	
 """===		Rare Occurances		==="""	
 	
 	
 def doug():
-	print("doug")
-	
+	count = 0
+	if count >= 1:
+		return None
+	else:
+		print("""
+		A Knight in an all Black suit of armor approaches.
+		His hair flows out of the back of his helmet in thick locks.
+		He draws his weapon, a large sword with golden features.
+		
+		"I do not wish to fight you," He says, "This armor is possesed
+		help me get rid of it, and this blade is yours!
+		
+		The only way I know of to get this armor off of me is to be defeated in combat!"
+		""")
+		print("	1)	Accept his quest.")
+		print("	2)	This Knigh is scary. Run away.")
+		print("	3)	Check his stats.")
+		print("	4)	Check Your stats.")
+		print("\n\n What would you like to do?")
+		choice_doug = int(input())
+		if choice_doug == 1:
+			print("""
+		Thank you! I shall try to go easy on you, but really you are fighting demonic armor and not me.
+			""")
+			battle(player, enemies.doug, doug)
+			print("""
+			"Thank you, warrior!" The knight says as teh helmet bounces on the ground.
+			"I am a man of honor, so I will bestow this blade unto you."
+			""")
+			print("You have aquired the Blade of Douglas!")
+			player.inv.append(items.dougsword)
+			count = count + 1
+		elif choice_doug == 2:
+			print("spooked by the spooky dude, you run away.")
+		elif choice_doug == 3:
+			print(enemies.doug.inquire())
+			doug()
+		elif choice_doug == 4:
+			print(player.check_equip())
+			doug()
+		else:
+			print("You did not choose a valid option.")
+			doug()
+				
 def karl():
 	print("karl")
 	

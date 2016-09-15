@@ -4,6 +4,7 @@
 all_enemies = []
 
 class enemy(object):
+	""" 		Base Class for all Enemies	"""
 	def __init__(self, name, descrip, hp, damage, speed):
 		self.name = name
 		self.descrip = descrip
@@ -105,6 +106,13 @@ slime = enemy("Slime",
 	hp = 25,
 	damage = 5,
 	speed = 100
+	)
+	
+doug = enemy("Douglas",
+	"Intimidating Knight in possessed armor. Weilds a strong blade.",
+	hp = 50,
+	damage = 20,
+	speed = 10
 	)
 
 	

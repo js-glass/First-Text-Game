@@ -4,6 +4,7 @@ all_items = []
 all_weaps = []
 
 class item(object):
+	"""Base Class for all items"""
 	def __init__(self, name, descrip, quanity, speed, value, unique):
 		self.name = name
 		self.descrip = descrip
@@ -18,6 +19,7 @@ class item(object):
 		return "{}\n========== \n{}\n    Value = {}\n".format(self.name, self.descrip,  self.value)
 	
 class weapon(item):
+	"""		Subclass of item that is used as weapon	"""
 	def __init__(self, name, descrip, quanity, speed, value, damage, unique):
 		self.name = name
 		self.descrip = descrip
@@ -34,6 +36,7 @@ class weapon(item):
 		return "{}\n==========\n{}\n    speed = {}\n    Damage = {}\n    Value = {}\n".format(self.name,self.descrip, self.speed, self.damage, self.value)
 		
 class gold(item):
+	"""		Subclass of item that is MMMmmmmmoney		"""
 	def _init__(self, name, descrip, quanity):
 		self.name = name
 		self.descrip = descrip

@@ -203,4 +203,3 @@ print("""
 """)
 
 play()
-events.demon()
