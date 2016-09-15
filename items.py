@@ -126,8 +126,8 @@ garnet = item("Garnet",
 	unique = False
 	)
 	
-ppr_clip = item("A Paper Clip",
-	"This item appears to be a complete anacronism.",
+ppr_clip = item("Paper Clip",
+	"This item appears to be a complete anacronism,\n no one made paper clips in medievil high fantasy times.",
 	quanity = 0, speed = 1, value = 0,
 	unique = False
 	)

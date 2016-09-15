@@ -1,6 +1,6 @@
 """===		Testing For Anything		==="""
 
-import items, actions, world, enemies, player, events, time
+import items, actions, world, enemies, player, events, time, sys
 from operator import itemgetter, attrgetter, methodcaller
 
 player = player.hero
@@ -175,6 +175,12 @@ def play():
 		else:
 			print("You do not have a weapon currently Equipped. You should equip one.")
 		play()
+	elif choice == 5:
+		pass
+		#sys.exit()
+	else:
+		print("You did not choose a valid option.")
+		play()
 		
 print("""	
 	Welcome to Justin's Game World name!
@@ -197,3 +203,4 @@ print("""
 """)
 
 play()
+events.demon()

@@ -30,22 +30,22 @@ class enemy(object):
 		
 orc_1 = enemy("Orcish Warrior",
 	"A lumbering mountain of muscle and strength weilding a battleaxe.\n",
-	hp = 75,
-	damage = 15,
+	hp = 25,
+	damage = 5,
 	speed = 10
 	)
 	
 orc_2 = enemy("Orcish Crusader",
 	"A muscular green humanoid with an angry grin on his face.\n",
-	hp =75,
-	damage = 15,
+	hp =25,
+	damage = 5,
 	speed = 10
 	)
 	
 orc_3 = enemy("Orcish Leader",
 	"This orc appears to have command over the others.\n",
-	hp = 100,
-	damage = 25,
+	hp = 35,
+	damage = 10,
 	speed = 15
 	)
 
