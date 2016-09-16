@@ -6,7 +6,7 @@ player = player.hero
 
 """===		Repeated Events	==="""
 
-def randItems(amt):
+def loot(amt):
 	pos_cont = []
 	for item in items.all_items:
 		if item.unique == False:
@@ -88,9 +88,83 @@ def game_over():
 	
 '''===		City Events	==='''
 
-def shop(x, y):
-	pass
-	
+def shop():
+	shop_items= []
+	pos_items = [items.gold_blade]
+	shop_gen = False
+	print("""
+	You enter the local market, 
+	all around are vendors selling various things.
+	Gold and items change hands at an alarmingly fast rate.
+	""")
+	print("	1)	Buy")
+	print("	2)	Sell")
+	print("	3)	Exit The Market")
+	print("\n\n What would you like to do?")
+	choice_shop = int(input())
+	if choice_shop == 1:
+		for item in items.all_items:
+			if item.unique != True and item.name != "Gold" and item.name != "Paper Clip":
+				pos_items.append(item)
+		while len(shop_items) < 11 and shop_gen == False:
+			shop_items.append(pos_items[random.randint(0, len(pos_items) - 1)])
+			if len(shop_items) == 11:
+				shop_gen = True
+		count = 0
+		print("You have {} Gold".format(items.money.quanity))
+		for item in shop_items:
+			count += 1
+			print("	" + str(count) + ")	" + str(item.value) + " Gold        " + item.name)
+		count += 1
+		print("	" + str(count) + ")	" + "Nothing.")
+		print("\n\n What would you like to purchase?")
+		choice_buy = int(input())
+		if choice_buy == len(shop_items) + 1:
+			print("\nYou purchase nothing.")
+			shop()
+		else:
+			purch = shop_items[choice_buy - 1]
+			if items.money.quanity < purch.value:
+				print("You so not have enough Gold.")
+				shop()
+			else:
+				print("You have purchased {} for {} Gold!".format(purch.name, str(purch.value)))
+				player.add_item(purch)
+				shop_items.pop(choice_buy - 1)
+				items.money.sub_gold(purch.value)
+				print("\n You have {} Gold remaining!".format(items.money.quanity))
+				shop()
+				
+	elif choice_shop == 2:
+		count = 0
+		for item in player.inv:
+			if item.name != "Gold":
+				count += 1
+				print("    " + str(count) + ")  " + str(item.value) + " Gold        " + item.name)
+		count += 1
+		print("    " + str(count) + ")  " + "Nothing.")
+		print("\n\n What would you like to sell?")
+		choice_sell = int(input())
+		if choice_sell == len(player.inv):
+			print("\n You didn't sell anything.")
+			shop()
+		elif choice_sell < len(player.inv) + 1:
+			sold = player.inv[choice_sell]
+			items.money.add_gold(sold.value)
+			player.inv.pop(choice_sell)
+			print("\n You sold your {} for {} Gold!".format(sold.name, sold.value))
+			shop()
+		else:
+			print("You did not choose a valid option.")
+			shop()
+			
+	elif choice_shop == 3:
+		print("You exit the shop and head back to the Town Square.")
+		
+	else:
+		print("You did not choose a valid option.")
+		shop()
+			
 def broth(x, y):
 	pass
 
@@ -122,7 +196,7 @@ def chest():
 	print("""
 	As you walk, you notice a chest slightly off of your path. You open the chest and plunder it's contents.
 	""")
-	randItems(2)
+	loot(2)
 
 def bandit():
 	print("""
@@ -181,7 +255,7 @@ def corpse():
 		print("You look down in mourning at the stranger at your feet. You hope to yourself that you don't end up like him.")
 	elif choice_corpse == 2:
 		print("You search the cadaver for anything of value. \n You find the following:")
-		randItems(2)
+		loot(2)
 	else:
 		print("You didn't choose any possible option.")
 		
@@ -222,7 +296,7 @@ def orcs():
 				elif choice_orc3 == 2:
 					battle(player, enemies.orc_3,orcs)
 					print("You have defeated all of the orcs! You rightfully take what is yours.")
-					randItems(3)
+					loot(3)
 		elif choice_orc == 2:
 			print("You, bing smaller and faster than the lumbering orcs, dart away successfully.")
 			return None

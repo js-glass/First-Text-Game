@@ -109,6 +109,12 @@ genes_axe = weapon("Gene Simmons' Axe",
 	quanity = 0, speed = 20, value = 300, damage = 50,
 	unique = True
 	)
+	
+gold_blade = weapon("Blade of Pure Gold",
+	"A blade forged from pure Gold. Worth a lot, but not very practical for battle.",
+	quanity = 0, speed = 10, value = 5000, damage = 5,
+	unique = True
+	)
 
 '''===		Items		==='''
 pock_watch = item("Pocket Watch",

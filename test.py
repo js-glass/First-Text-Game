@@ -122,6 +122,7 @@ acts = [
 	]
 	
 def play():
+	print("You are currently at {}\n".format(player_loc().name))
 	time.sleep(1)
 	for item in acts:
 		index = int(acts.index(item)) + 1
@@ -166,6 +167,7 @@ def play():
 				play()
 	elif choice == 3:
 		print("You didn't believe me. I had no reason to decieve you. But I did anyyway./n")
+		events.shop()
 		play()
 	elif choice == 4:
 		print("Your health is at {} points.".format(player.hp))
@@ -203,3 +205,4 @@ print("""
 """)
 
 play()
+events.shop()

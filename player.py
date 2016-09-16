@@ -59,5 +59,11 @@ class player(object):
 				print(item.inquire())
 		else:
 			print("You have nothing equipped.")
+	
+	def add_item(self, item):
+		if item not in self.inv:
+			self.inv.append(item)
+		else:
+			item.quanity = item.quanity + 1
 
 hero = player()

@@ -1,6 +1,10 @@
 """ ===		World 		==="""
 
 all_places = []
+all_x = []
+all_y = []
+all_cities_x = []
+all_cities_y = []
 
 class place(object):
 	"""	Base Class for all locations		"""
@@ -81,3 +85,12 @@ all_coords = []
 	
 for item in all_places:
 	all_coords.append([item.x, item.y])
+
+for item in all_places:
+	all_x.append(item.x)
+	all_y.append(item.y)
+	
+for item in all_places:
+	if item.city == True:
+		all_cities_x.append(item.x)
+		all_cities_y.append(item.y)
