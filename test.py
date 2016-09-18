@@ -7,11 +7,6 @@ player = player.hero
 places = world.all_places
 
 
-def player_loc():
-	for item in places:
-		if (player.x,player.y) == (item.x, item.y):
-			return item
-
 def travel_choices():
 																					#need alll these variables for controlling my loops, without these, ifinite recursion.
 	north = 0
@@ -19,8 +14,8 @@ def travel_choices():
 	east = 0
 	west = 0
 																					#these just make it easier for me to make the data I need
-	play_x = player_loc().x
-	play_y = player_loc().y
+	play_x = player.get_loc().x
+	play_y = player.get_loc().y
 	loc = [play_x, play_y]
 																					#made these variables so I can modify a integer without affecting the actual value 
 	Nplay_y = play_y
@@ -93,22 +88,22 @@ def travel_choices():
 		actions.travel(player, north_place.x, north_place.y)
 		print("\n" +"You have arrived at:\n" +north_place.inquire())
 	elif choice_trav == 1 and 'north_place' not in locals():
-		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player_loc().name))
+		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player.get_loc().name))
 	elif choice_trav == 2 and 'south_place' in locals():
 		actions.travel(player, south_place.x, south_place.y)
 		print("\n" + "You have arrived at:\n" +south_place.inquire())
 	elif choice_trav == 2 and 'south_place' not in locals():
-		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player_loc().name))
+		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player.get_loc().name))
 	elif choice_trav == 3 and 'east_place' in locals():
 		actions.travel(player, east_place.x, east_place.y)
 		print("\n" +"You have arrived at:\n" +east_place.inquire())
 	elif choice_trav == 3 and 'east_place' not in locals():
-		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player_loc().name))
+		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player.get_loc().name))
 	elif choice_trav == 4 and 'west_place' in locals():
 		actions.travel(player, west_place.x, west_place.y)
 		print("\n" +"You have arrived at:\n" + west_place.inquire())
 	elif choice_trav == 4 and 'west_place' not in locals():
-		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player_loc().name))
+		print("You can't travel to 'No Location,' ya dingus.\n You remain at {}\n".format(player.get_loc().name))
 		
 	
 	play()
@@ -116,13 +111,13 @@ def travel_choices():
 acts = [
 	"Travel",
 	"Manage Inventory", 
-	"Interact (Currently closes program)",
+	"Interact with {}".format(player.get_loc().name),
 	"Check Character Information.",
 	"Close the Program"
 	]
 	
 def play():
-	print("You are currently at {}\n".format(player_loc().name))
+	print("You are currently at {}\n".format(player.get_loc().name))
 	time.sleep(1)
 	for item in acts:
 		index = int(acts.index(item)) + 1
@@ -166,8 +161,20 @@ def play():
 				print("Not a Damn thing, good sir or madam.")
 				play()
 	elif choice == 3:
-		print("You didn't believe me. I had no reason to decieve you. But I did anyyway./n")
-		events.shop()
+		if player.get_loc().city == True:
+			if player.get_loc().name ==  "Mitovar City":
+				options = events.mitovar_city_events
+			elif player.get_loc().name == "Sturkes City":
+				options = events.sturkes_events
+			elif player.get_loc().name == "Azkabar (North)":
+				options = events.azkabar_events
+			else:
+				options = events.city_events
+		for item in options:
+			print(item.name)
+		else:
+			print("There is nothing in this area to interact with.")
+			
 		play()
 	elif choice == 4:
 		print("Your health is at {} points.".format(player.hp))
@@ -185,9 +192,9 @@ def play():
 		play()
 		
 print("""	
-	Welcome to Justin's Game World name!
-	You are in the great city of Mandonia
-	Speaking to Todd, the King of Mandonia!
+	Welcome to Mitovar!
+	You are in the great city of Mitovar City
+	Speaking to Todd, the King of Mitovar City!
 
 	King Todd says to you, a valient hero, 
 	 "I need you to go North to the Dragon's Lair
@@ -205,4 +212,5 @@ print("""
 """)
 
 play()
-events.shop()
+
+events.market.enter()

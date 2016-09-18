@@ -20,7 +20,7 @@ class place(object):
 	def inquire(self):
 		return "{}\n ========\n{}\n\nLocation: ({},{})\n".format(self.name, self. descrip, self.x, self.y)
 
-mando = place("Mandonia",
+mitovar_city = place("Mitovar City",
 	"The main trading hub of this area, This is where King Todd sits upon his throne",
 	city = True,
 	x = 1, y = 1

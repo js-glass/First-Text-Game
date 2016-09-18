@@ -1,6 +1,6 @@
 """===		Player		==="""
 
-import items, actions
+import items, actions, world
 
 class player(object):
 	def __init__(self):
@@ -65,5 +65,16 @@ class player(object):
 			self.inv.append(item)
 		else:
 			item.quanity = item.quanity + 1
+			
+	def remove_item(self, item):
+		if item.quanity > 1:
+			item.quanity = item.quanity - 1
+		elif item.quanity == 1:
+			self.inv.remove(item)
+		
+	def get_loc(self):
+		for item in world.all_places:
+			if (self.x,self.y) == (item.x, item.y):
+				return item
 
 hero = player()
