@@ -213,4 +213,4 @@ print("""
 
 play()
 
-events.market.enter()
+events.kingT.enter_1()

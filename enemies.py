@@ -114,6 +114,20 @@ doug = enemy("Douglas",
 	damage = 20,
 	speed = 10
 	)
+	
+kingT = enemy("King Todd",
+	"Standing galiently in his King's attire and crown, Todd awaits your attack.",
+	hp = 100,
+	damage = 20,
+	speed = 10
+	)
+	
+kingT_reptile = enemy("King Todd",
+	"Suddnly the skin rips from Todd's flesh and a wet reptillian underskin is exposed.",
+	hp = 75,
+	damage = 25,
+	speed = 10
+	)
 
 	
 '''for item in all_enemies:
