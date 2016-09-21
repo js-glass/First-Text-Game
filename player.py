@@ -5,10 +5,10 @@ import items, actions, world
 class player(object):
 	def __init__(self):
 		self.inv = [items.money, items.sword_1, items.pock_watch]
-		self.hp = 150
+		self.hp = 100
 		self.x = 1
 		self.y = 1
-		self.equipped = [items.demon_pock_watch]
+		self.equipped = []
 		
 	def equip(self, item):
 		if len(self.equipped) == 1:

@@ -6,60 +6,27 @@ player = player.hero
 
 """===		Repeated Events	==="""
 
-def loot(amt):
-	"""	Function for generating wonderful loot for the player! The bread and butter of RPGs	"""
-	
-	pos_cont = []
-	for item in items.all_items:
-		if item.unique == False:
-			pos_cont.append(item)
-	contents = []
-	while len(contents) < amt:
-		contents.append(pos_cont[random.randint(0, len(pos_cont) - 1)])
-	for item in contents:
-		if item.name == "Gold":
-			quanity = random.randint(25, 200)
-		else:
-			quanity = ""
-		if 'quanity' in locals():
-			print(str(quanity) + "  " + item.inquire())
-		else:
-			print(item.inquire())
-		print("Would you like to take this item with you?")
-		print("	1) Yes")
-		print("	2) No")
-		choice_take = int(input())
-		if choice_take == 1 and item.name == "Gold":
-			print("You have aquired {} Gold Coins".format(quanity))
-			items.money.add_gold(quanity)
-		elif choice_take == 1 and quanity != int:
-			print("You have aquired {}".format(item.name))
-			if item not in player.inv:
-				player.inv.append(item)
-			if item in player.inv:
-				item.quanity = item.quanity + 1
-		elif choice_take == 2:
-			print("You did not take the {}".format(item.name))
-		else:
-			print("You did not take the {}".format(item.name))
-
 def battle(player, opponent, event):
+	""" REDO THIS ENTIRE FUNCTION. BATTLE IS BUGGY(WELL, NOT BUGGY, but just not .... idk... intuitive)	"""
+
+
+
 	battle_hp = opponent.hp
 	if len(player.equipped) > 0:
 		while player.hp > 0 and battle_hp > 0:
 			if opponent.speed > player.equipped[0].speed:
 				player.hp = player.hp - opponent.damage
-				time.sleep(1)
+				#time.sleep(1)
 				print("\n{} attacked you and did {} damage!\n Your remaining life is {}!".format(opponent.name, opponent.damage, player.hp))
 				battle_hp = battle_hp - player.equipped[0].damage
-				time.sleep(1)
+				#time.sleep(1)
 				print("\nYou attacked using your {}, and did {} damage!\n{} has {} hp left!".format(player.equipped[0].name, player.equipped[0].damage, opponent.name, battle_hp))
 			elif opponent.speed < player.equipped[0].speed or opponent.speed == player.equipped[0].speed:
 				battle_hp = battle_hp - player.equipped[0].damage
-				time.sleep(1)
+				#time.sleep(1)
 				print("\nYou attacked using your {}, and did {} damage!\n{} has {} hp left!".format(player.equipped[0].name, player.equipped[0].damage, opponent.name, battle_hp))
 				player.hp = player.hp - opponent.damage
-				time.sleep(1)
+				#time.sleep(1)
 				print("\n{} attacked you and did {} damage!\n Your remaining life is {}!".format(opponent.name, opponent.damage, player.hp))
 		if player.hp > 0:
 			print("\n========\nThe battle is over and you survive with {} hp remaining.".format(player.hp))
@@ -71,9 +38,9 @@ def battle(player, opponent, event):
 		event()
 
 def game_over():
-	time.sleep(1)
+	#time.sleep(1)
 	print("You Were Unable to Complete your Quest.")
-	time.sleep(1)
+	#time.sleep(1)
 	print("=====	GAME OVER, MAN		======")
 	print("	1)	Close the Program.")
 	print("	3)	Close the Program.")
@@ -83,7 +50,7 @@ def game_over():
 	print("	7)	Close the Program.")
 	print("	8)	Close the Program.")
 	print("	9)	Close the Program.")
-	time.sleep(2)
+	#time.sleep(2)
 	print("\n\nWhat would you like to do?")
 	choice= input()
 	sys.exit()
@@ -134,7 +101,7 @@ class market(city_event):
 		if player.get_loc().city == True:
 			return "Shop"
 		else:
-			return None
+			return "Nothing"
 		
 	def gen_items(self):
 		option = False
@@ -226,7 +193,6 @@ class market(city_event):
 			self.enter()
 
 shop = market("Shop", [])
-
 			
 class broth(city_event):
 	"""	Brothel buffs health to 150, or gives you a disease.	"""
@@ -237,7 +203,7 @@ class broth(city_event):
 		if player.get_loc().city == True:
 			return "Brothel"
 		else:
-			return None
+			return "Nothing"
 			
 	def enter(self):
 		print('''
@@ -250,6 +216,7 @@ class broth(city_event):
 		if choice_broth == 1:
 			if items.money.quanity >= 200:
 				self.service()
+				items.money.quanity = items. money.quanity - 200
 			elif items.money.quanity < 200:
 				print("You can't afford services here, The matron asks you to leave.")
 				return None
@@ -263,7 +230,7 @@ class broth(city_event):
 	def service(self):
 		print("You go to the back room, lay and wait.")
 		chance = random.randint(0,100)
-		time.sleep(5)
+		#time.sleep(5)
 		if chance > 5:
 			print("You feel reinvigorated! Much better than before.")
 			player.hp = 150
@@ -282,20 +249,20 @@ class pub(city_event):
 		if player.get_loc().city == True:
 			return "Bar"
 		else:
-			return None
+			return "Nothing"
 	
 	
 	def enter(self):
 		"""	Bars will provide some information as to what you can do in the game.	"""
 
 		print("You enter the local Tavern, thirsty and tired.")
-		time.sleep(1)
+		#time.sleep(1)
 		print("You sit at the bar and order a drink. The drink costs 6 Gold.")
-		time.sleep(1)
+		#time.sleep(1)
 		if items.money.quanity >= 6:
 			items.money.sub_gold(6)
 			print("in the hustle and bustle of the Tavern, you overhear a nearby conversation.")
-			time.sleep(1)
+			#time.sleep(1)
 			bar_talk.all[random.randint(0, len(bar_talk.all))]()
 			print("You finish up your drink and head back out to the Town Square.")
 		else:
@@ -313,7 +280,7 @@ class king(city_event):
 		if player.get_loc().name == "Mitovar City":
 			return "King Todd"
 		else:
-			return None
+			return "Nothing"
 			
 	def enter_1(self):
 		print("""
@@ -321,9 +288,9 @@ class king(city_event):
 			Guards on either side of the long ornate chamber stand alert
 			At the far end from the entrance, upon a large throne, King Todd sits.
 			""")
-		time.sleep(2)
+		#time.sleep(2)
 		print("It takes you a moment to travel to where he sits.")
-		time.sleep(2)
+		#time.sleep(2)
 		self.enter_2()
 		
 		
@@ -336,16 +303,16 @@ class king(city_event):
 		if choice_king == 1:
 			self.item()
 		elif choice_king == 2:
-			self.quest(self)
+			self.quest()
 		elif choice_king == 3:
 			print("You turn around and walk down the chamber toward the exit.")
-			time.sleep(1)
+			#time.sleep(1)
 			print("...")
-			time.sleep(1)
+			#time.sleep(1)
 			print("...")
-			time.sleep(1)
+			#time.sleep(1)
 			print("... Almost out...")
-			time.sleep(1)
+			#time.sleep(1)
 			print("You return to the Town Square.")
 			return None
 			
@@ -389,9 +356,9 @@ class king(city_event):
 		""")
 		print("King Todd grabs for his blade and paitently stand his ground waiting for your first move.")
 		battle(player, enemies.kingT, None)
-		time.sleep(1)
+		#time.sleep(1)
 		print("The clanging of metal ceases. You have defeated the King in honorable combat.")
-		time.sleep(2)
+		#time.sleep(2)
 		print("As you approach your rightfully earned Throne, behind you, you hear him stand once more.")
 		print("""
 		"You think you can defeat me so easily!?"
@@ -400,41 +367,273 @@ class king(city_event):
 		""")
 		battle(player, enemies.kingT_reptile, None)
 		win.NewKing()
-
+		
+	def quest(self):
+		print("""
+		The dragon lurks at the top of the mountain up north!
+		it took my MacGuffin and a large amount of my Gold!
+		I need you to go get my stuff back and slay the beast!
+		
+		The dragon is feirce and will be able to resist a large amoutn of damage,
+		Be sure you are ready before facing it.
+		""")
+		self.enter_2()
+		
 kingT = king("King Todd")
 		
 class elf_mage(city_event):
+	
+	def __init__(self, name, inter_times):
+		self.name = name
+		self.inter_times = inter_times
 
+	def in_list(self):
+		if player.get_loc().name == "Strukes City":
+			return "Elven Mage"
+		else:
+			return "Nothing"	
+	
+	def enter(self):
+		"""	Infuses weapons with demon essence after you complete his quest of dealing with the witch		"""
+		print("""
+		You walk into the Mage's Shop knowing you are unable to use any of his wares.
+		Looking all around, you see various staves, and magical trinkets.
+		The owner of the shop, Lunk, approaches you.
+		""")
+		time.sleep(1)
+		if self.inter_times == 0:
+			print("You are a warrior of some renown. I see your strength. I need to ask a favor of you.")
+			self.quest()
+		elif self.inter_times == 1:
+			print("You have returned! Do you have any news of the Witch?")
+			self.inter()
+			
+	def quest(self):
+		print("	1) What do you need, mage?")
+		print("	2) I can't help you right now. (Leave the shop)")
+		print("\n\n What would you like to say?")
+		choice_mage_quest = int(input())
+		if choice_mage_quest == 1:
+			print("There is a witch in the northen woods. I bellieve she is what became of my first wife.\n I need you to find her for me.\n if she is corrupt, slay her.\n otherwise, give her this.\n From the rumurs I have heard, She is in the Western Woods.")
+			player.inv.append(items.wedd_ring_1)
+			items.wedd_ring_1.quanity = 1
+			print("You have aquired {}!".format(items.wedd_ring_1.name))
+			self.inter_times = 1
+		elif choice_mage_quest == 2:
+			print("You leave and return to Town Square.")
+			return None
+		else:
+			print("You did not choose a valid option.")
+			self.quest()
+			
+	def inter(self):
+		if self.inter_times == 3:
+			self.blood2ess()
+		elif items.wedd_ring_1 in player.inv:
+			print("	1) I am sorry, I have not gotten around to it. (Leave)")
+			print("	2) What is it I am supposed to do again?")
+			choice_inter = int(input())
+			if choice_inter == 1:
+				print("You return to the Town Square")
+				return None
+			elif choice_inter == 2:
+				print("There is a witch in the northen woods. I bellieve she is what became of my first wife.\n I need you to find her for me.\n if she is corrupt, slay her.\n otherwise, give her this.")
+				print("You remember the Wedding Ring.")
+				self.inter()
+		elif items.witch_blood in player.inv:
+			print("	1) I am sorry, I have not gotten around to it. (Leave)")
+			print("	2) The witch was Corrupt, I could not change her.")
+			choice_inter = int(input())
+			if choice_inter == 1:
+				print("You return to the Town Square.")
+				return None
+			elif choice_inter == 2:
+				print("I am sad that nothing could be done, but thank you for helping\nBring me demon's blood and I will convert it to Demon Essence for you.")
+				self.inter_times = 3
+			else:
+				print("You did not choose a valid option.")
+				self.inter()
+		elif items.wedd_ring_2 in player.inv:
+			print("	1) I am sorry, I have not gotten around to it. (Leave)")
+			print("	2) I spoke to her, and she gave me this. (Hand him the Witch's Ring")
+			choice_inter = int(input())
+			if choice_inter == 1:
+				print("You return to the Town Square")
+				return None
+			elif choice_inter == 2:
+				print("My word... She is sentient... I must go visit her. I will return here after.")
+				print("Bring me Demon's Blood and i will boil it down to essence for you.")
+				self.inter_times = 3
+				
+	def blood2ess(self):
+		print("Would you like me to turn your Demon's Blood into Essence?")
+		print("\n\n1) Yes.")
+		print("	2) No. (Leave)")
+		choice_b2e = int(input())
+		if choice_b2e == 1:
+			player.inv.remove(items.demons_blood)
+			player.inv.append(items.demons_essence)
+			items.demons_essence.quanity += items.demons_blood.quanity
+			items.demons_blood.quanity = 0
+			print("You have aqquired {} Demon Essences!".format(items.demon_essence.quanity))
+			return None
+		elif choice_b2e ==2:
+			print("You return to the Town Square.")
+			return None
+		else:
+			print("You did not choose a valid option.")
+			self.blood2essence()
+				
+lunk = elf_mage("Lunk", 0)
 
-	def mage():
-		"""	Infuses weapons with demon essence after you complete his quest ofdealing with the witch		"""
+class rest(city_event):
+
+	def __init__(self, name):
+		self.name = name
 		
-		pass
-
-class inn(city_event):
-
-	def inn():
+	def in_list(self):
+		if player.get_loc().city == True:
+			return "Inn"
+		else:
+			return "Nothing"	
+	
+	def enter(self):
 		"""	Allows players to rest and regain health	"""
-		
-		pass
+		print("	1) Yes")
+		print("	2) No. (Leave)")
+		print("\n\n Would you like to rest?")
+		choice_inn = int(input())
+		if choice_inn == 1:
+			actions.rest(player)
+		elif choice_inn == 2:
+			print("You return to the Town Square.")
+			return None
+				
+inn = rest("inn")
 
 class Dsmith(city_event):
-
-
-	def dwarf_smith():
-		"""	Provides a unique weapon.	"""
+	"""	Provides a unique weapon and can infuse weapons.	"""
+	
+	def __init__(self, name):
+		self.name = name
+	
+	def in_list(self):
+		if player.get_loc().name == "Azkabar (North)":
+			return "Dwarven Blacksmith"
+		else:
+			return "Nothing"
+	
+	def enter(self):
+		print("""
+		You walk into the Smith's forgery.
+		The heat hits you just as if you walked into the sun.
+		Near the forge, you see a dwarf pounding away at a red hot blade.
 		
-		pass
+		He notices you. The blade hisses as he submerges it into water.
+		"How can I help you?" he asks.
+		""")
+		print("	1) Can you make me a weapon that could defeat a Dragon?")
+		print("	2) Can you do anything to improve the weapons I have?")
+		print("	3) Exit the Dwarven Smith's Forge.")
+		print("\n\n What would you like to do?")
+		choice =int(input())
+		if choice == 1:
+			self.weapon()
+		elif choice == 2:
+			self.infuse()
+		elif choice == 3:
+			print("You leave and return to the Town Square.")
+			return None
+		else:
+			print("You did not choose a valid option.")
+			self.enter()
+			
+	def weapon(self):
+		print("Yes, I am the best Smith in all of Azkabar. Of course I can.")
+		time.sleep(1)
+		print("Of course... I can't do it for free... 1000 Gold Coins.")
+		print("\n\n	1) I have your money here. (1000 Gold Coins)")
+		print("	2) I will be back later with your money.")
+		choice = int(input())
+		if choice == 1 and items.money.quanity > 999:
+			print("You hand over a large sack of Gold.")
+			print("The Dwarf begins working.")
+			count = 0
+			while count < 5:
+				print("...")
+				time.sleep(1)
+			print("He hands you a Large Axe.")
+			print("You have aquired {}".format(items.dwarf_axe.name))
+			player.inv.append(items.dwarf_axe)
+			items.dwarf_axe.quanity = 1
+		elif choice == 1 and items.money.quanity < 1000:
+			print("You do not have enough money. Come back later.")
+			self.weapon()
+		elif choice == 2:
+			print("You leave and return to the Town Square.")
+			
+	def infuse(self):
+		print("I can infuse any weapon you have with the power of a demon. I need the weapon and some Demon Essence.")
+		if items.demon_essence in player.inv:
+			weapons = []
+			count = 0
+			for item in player.inv:
+				if item.equippable == True or item.name == "Pocket Watch":
+					weapon.append(item)
+			for item in weapons:
+				count += 1
+				print("    " + str(count) + ")  " + item.name )
+			count += 1
+			print("    " + str(count) + ")  " + "Exit the infuse Menu.")
+			print("\n\n What would you like to infuse?")
+			choice = int(input())
+			if choice <= len(weapons):
+				infused = weapons[choice -  1]
+				if infused.name == "Pocket Watch":
+					player.inv.remove(items.pock_watch)
+					player.inv.append(items.demon_pock_watch)
+					print("You have aquired the Demonic Pocket Watch!")
+					print(items.demon_pock_watch.inquire())
+				else:
+					infused.infuse()
+					print("If you come across another of these, I have given you the formula to infuse it yourself.")
+			elif choice == len(weapons) + 1:
+				self.enter()
+			
+		else:
+			print("You don't have any Demon Essence. You ask the Dwarf where you might find some.")
+			time.sleep(1)
+			print("I know of an Elven Mage over in Strukes City who can extract it from Demon's blood. Try him.")
+			self.enter()
+			
+dwarf = Dsmith("Dwarf")
 
 class Esmith(city_event):
-
+	
+	def __init__(self, name):
+		self.name = name
+	
+	def in_list(self):
+		if player.get_loc().name == "Strukes City":
+			return "Elven Blacksmith"
+		else:
+			return "Nothing"
 	
 	def elf_smith():
 		"""	Provides a Unique weapon	"""
 		
 		pass
 
-class Dragon_inter(city_event):
+class Dragon_E(city_event):
+	
+	def __init__(self, name):
+		self.name = name
+		
+	def in_list(self):
+		if player.get_loc().name == "Dragon's Lair":
+			return "Dragon"
+		else:
+			return "Nothing"
 		
 	def flight():
 		"""	For secret "Befriending the dragon" ending	"""
@@ -442,257 +641,4 @@ class Dragon_inter(city_event):
 		pass
 
 
-'''===		Travel Events	==='''
-				
-
-def chest():
-	"""	Provides loot to player	"""
-
-	print("""
-	As you walk, you notice a chest slightly off of your path. You open the chest and plunder it's contents.
-	""")
-	loot(random.randint(1,5))
-
-def bandit():
-	"""	Provides an easy challange to player	"""
-
-	print("""
-	A bandit creeps up behind you. Before you are able to react, you have a weapon poking your back
-	and a voice demanding you give himn your money.
-	""")
-	print(enemies.bandit.inquire())
-	if items.money.quanity > 99:
-		print("	1)	Give him 100 Gold Coins.")
-		mon = True
-	else:
-		print("	1)	You do not have enough money to appease him.")
-		mon = False
-	print("	2)	Turn around and attack him.")
-	print("	3)	Try to flee from the highwayman.")
-	print("\n\nWhat would you like to do?")
-	choice_band = int(input())
-	if choice_band == 1 and mon == True:
-		print("""
-		You give the bandit a sack of 100 gold coins. He walks away satisfied, you walk away ashamed.
-		""")
-		items.money.sub_gold(100)
-		print("You have {} Gold remaining.".format(str(items.money.quanity)))
-	elif choice_band == 1 and mon == False:
-		print("Your coinpurse is nearly empty, it won't be enough to make this man happy.")
-		bandit()
-	elif choice_band == 2 and battle(player, enemies.bandit, bandit) == True:
-		print("You decide, fuck this guy for trying to steal from you!")
-		battle(player, enemies.bandit, bandit)
-		print("You take the Bandit's previous \"earnings\"")
-		earnings = random.randint(50, 200)
-		items.money.add_gold(earnings)
-		print("You have aquired {} Gold Coins!".format(earnings))
-	elif choice_band == 3:	
-		print("You figure you can get away from this guy, just by running fast.")
-		time.sleep(1)
-		success = random.randint(0,100)
-		if success >25:
-			print("And you were right, you made it out of the Bandit's sight.")
-		else:
-			print("But you were wrong. He followed you and poked the same blade toward you.")
-			bandit()
-	else:
-		print("You didn't chose any of the possible choices.")
-		bandit()
-
-def corpse():
-	"""	An ethical dilemma where choosing the "Good" option provides no bonus	"""
-
-	print("""
-	You stumble upon the corpse of a fallen warrior.
-	Is it ethical to take what he has dropped? Do you care?
-	""")
-	print("	1)	You do not take the poor soul's items out of respect for the dead.")
-	print("	2)	This is a stupid text based game. Ethics be damned, I want stuff.")
-	print("\n\nWhat would you like to do?")
-	choice_corpse = int(input())
-	if choice_corpse == 1:
-		print("You look down in mourning at the stranger at your feet. You hope to yourself that you don't end up like him.")
-	elif choice_corpse == 2:
-		print("You search the cadaver for anything of value. \n You find the following:")
-		loot(random.randint(1,3))
-	else:
-		print("You didn't choose any possible option.")
-		
-def orcs():
-	"""	Challangeing fight, shows players that sometimes enemies are not alone.	"""
-
-	print("""
-	You see a few big dumb orcs travelling the opposite direction of you.
-	Hoping silently to yourself he won't think you are a challange, you pass by him.
-	""")
-	chance = random.randint(0,100)
-	if chance < 0:
-		print("The orcs decided to leave you alone and travel on their way.")
-	elif chance >= 0 < 99:
-		print("You must have looked a bit too strong. They gather around you.")
-		print("""
-		The orcs stand around you, there are three of them. One looks a little tougher than the other two.
-		Why do they always travel in groups of three.
-		""")
-		print("	1)	Fight these guys, show them what you're made of.")
-		print("	2)	Try to slip away and escape. You can't take all three of them.")
-		print("	3)	Inquire about the Orc's stats.\n")
-		choice_orc = int(input())
-		if choice_orc == 1:
-			battle(player, enemies.orc_1,orcs)
-			print("Do you want to try to fight the next one, or run?")
-			print("	1)	Run")
-			print("	2) Keep Fighting!")
-			choice_orc2 = int(input())
-			if choice_orc2 == 1:
-				print("You, bing smaller and faster than the lumbering orcs, dart away successfully.")
-			elif choice_orc2 == 2:
-				battle(player, enemies.orc_2,orcs)
-				print("Do you want to try to fight the last one, or run? This guy does look a bit tougher")
-				print("	1)	Run")
-				print("	2) Keep Fighting!")
-				choice_orc3 = int(input())
-				if choice_orc3 == 1:
-					print("You, bing smaller and faster than the lumbering orcs, dart away successfully.")
-				elif choice_orc3 == 2:
-					battle(player, enemies.orc_3,orcs)
-					print("You have defeated all of the orcs! You rightfully take what is yours.")
-					loot(3)
-		elif choice_orc == 2:
-			print("You, bing smaller and faster than the lumbering orcs, dart away successfully.")
-			return None
-		elif choice_orc == 3:
-			print(enemies.orc_1.inquire())
-			print(enemies.orc_2.inquire())
-			print(enemies.orc_3.inquire())
-			orcs()
-		else:
-			print("You didn't type one of the possible choices.")
-			orcs()
-	
-def demon():
-	"""	Will absolutly murder a lower player. REMEMBER TO MAKE THIS RARE OR HAVE A DAMAGE REQUIRMENT FOR THIS TO OCCUR	"""
-	
-	print("""
-	Floating in the sky above you see a demon. 
-	Its red wings flap to keep it afloat.
-	It approaches you.
-	""")
-	print("	1)	Run Away as fast as you can!")
-	print("	2)	Stand your ground and fight the demon.")
-	print("	3)	Inquire about the Demon's stats.")
-	choice_demon = int(input())
-	if choice_demon == 1:
-		flee_chance = random.randint(0,100)
-		if flee_chance < 50:
-			print("You manage to escape the Demon's sight and continue on your path.")
-		else:
-			print("The Demon still sees you and is probably more angry now that you ran.")
-			demon()
-	elif choice_demon == 2:
-		battle(player, enemies.demon_1, demon)
-		print("Knowing the value of Demon's blood, You collect some in a small vial.")
-		if items.demons_blood in player.inv:
-			items.demons_blood.quanity = items.demons_blood.quanity + 1
-		else:
-			player.inv.append(items.demons_blood)
-		print("You have aquired a Vial of Demon's Blood!")
-	elif choice_demon == 3:
-		print(enemies.demon_1.inquire())
-		demon()
-	else:
-		print("You did not choose a valid option.")
-		demon()
-	
-def rest_stop():						#HAVE NOT ADDED TO LIST! NEED TO!
-	"""	Provides reprieve on long travels. MODIFY TO SHOW UP MORE OFTEN AS HEALTH LOWERS	"""
-	
-	print("""
-	You see a small group of people gathered around a campfire.
-	They beckon you over to them offering food and rest.
-	""")
-	print("	1)	Sit at campfire and rest.")
-	print("	2)	Continue on your journey.")
-	print("/n/n What would you like to do?")
-	choice_rest = int(input())
-	if choice_rest == 1:
-		actions.rest(player)
-		print("You wake fully rested and contine on your path.")
-	elif choice_rest == 2:
-		pass
-	else:
-		print("You did not choose a valid option.")
-		rest_stop()
-	
-"""===		Rare Occurances		==="""	
-	
-	
-def doug():
-	"""	Provide unique weapon	"""
-	
-	count = 0
-	if count >= 1:
-		return None
-	else:
-		print("""
-		A Knight in an all Black suit of armor approaches.
-		His hair flows out of the back of his helmet in thick locks.
-		He draws his weapon, a large sword with golden features.
-		
-		"I do not wish to fight you," He says, "This armor is possesed
-		help me get rid of it, and this blade is yours!
-		
-		The only way I know of to get this armor off of me is to be defeated in combat!"
-		""")
-		print("	1)	Accept his quest.")
-		print("	2)	This Knigh is scary. Run away.")
-		print("	3)	Check his stats.")
-		print("	4)	Check Your stats.")
-		print("\n\n What would you like to do?")
-		choice_doug = int(input())
-		if choice_doug == 1:
-			print("""
-		Thank you! I shall try to go easy on you, but really you are fighting demonic armor and not me.
-			""")
-			battle(player, enemies.doug, doug)
-			print("""
-			"Thank you, warrior!" The knight says as teh helmet bounces on the ground.
-			"I am a man of honor, so I will bestow this blade unto you."
-			""")
-			print("You have aquired the Blade of Douglas!")
-			items.dougsword.quanity += 1
-			player.inv.append(items.dougsword)
-			count = count + 1
-		elif choice_doug == 2:
-			print("spooked by the spooky dude, you run away.")
-		elif choice_doug == 3:
-			print(enemies.doug.inquire())
-			doug()
-		elif choice_doug == 4:
-			print(player.check_equip())
-			doug()
-		else:
-			print("You did not choose a valid option.")
-			doug()
-				
-def karl():
-	"""	Provide unique weapon	"""
-	
-	print("karl")
-	
-def barry():
-	"""	Provide unique weapon	"""
-	
-	print("Barry")
-	
-def connor():
-	"""	Provide unique weapon	"""
-	
-	print("Connor")
-	
-def jimmy():
-	"""	Provide unique weapon	"""
-	
-	print("jimmy")
-	
+all = [shop, brothel, inn, bar, kingT, lunk, dwarf]		

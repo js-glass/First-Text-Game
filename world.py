@@ -26,13 +26,13 @@ mitovar_city = place("Mitovar City",
 	x = 1, y = 1
 	)
 
-elf_place = place("Strukes city", 
+elf_place = place("Strukes City", 
 	"Rope bridges string each building together in this city hanging off the \ncliffside overlooking the great Calipran Sea.",
 	city = True,
 	x = 15, y = 1
 	)
 	
-port_city = place("Portside city",
+port_city = place("Portside City",
 	"A creatively named port place. All trade routes out come through this seaside town.",
 	city = True,
 	x = 15 ,y = 5 
@@ -57,10 +57,10 @@ island_paradise = place("Easter Island",
 	)
 
 	
-wicked = place("Witches Shack",
+wicked = place("Western Woods",
 	"A small hut in the woods known to house a witch with control over magics of all kind.",
 	city = False,
-	x = 6, y = 15
+	x = -10, y = 15
 	)
 	
 demon_pit = place("Demon Pitt",

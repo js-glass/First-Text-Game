@@ -1,5 +1,5 @@
 '''	===		Items	==='''
-
+import random
 all_items = []
 all_weaps = []
 
@@ -158,13 +158,25 @@ gold_blade = weapon("Blade of Pure Gold",
 	unique = True,
 	)
 
-demon_pock_watch = weapon("Pocket Watch.",
+demon_pock_watch = weapon("Pocket Watch",
 	"Infused with demon essence, and your own sentimental value, your pocket watch has become a powerful weapon.",
 	quanity = 0, speed = 25, value = 250, damage = 50,
 	unique = True
 	)
 demon_pock_watch.infuse()			#Weapon only exists in demonic form.
+
+dwarf_axe = weapon("Dwarven Axe",
+	"Oversized axe forged by the smith at Azkabar.",
+	quanity = 0, speed = 15, value = 200, damage = 30,
+	unique = True
+	)
 	
+elf_sword = weapon("Elven Sword",
+	"Long and sleek blade forged by the smith at Strukes City.",
+	quanity = 0, speed = 25, value = 200, damage = 25,
+	unique = True
+	)
+
 '''===		Items		==='''
 pock_watch = item("Pocket Watch",
 	"This pocket watch may not be worth much to others, but to you it holds value.",
@@ -290,6 +302,24 @@ steven = item("Steven",
 	"This is actually a rose quartz gem, but it looks like a kid.",
 	quanity = 0, speed = 1, value = 50,
 	unique = False
+	)
+	
+wedd_ring_1 = item("Lunk's Wedding ring",
+	"Trinket meant to bring back the Witch from her insanity",
+	quanity = 0, speed = 1, value = 250,
+	unique = True
+	)
+	
+wedd_ring_2 = item("Witch's Ring",
+	"The ring kept by the Witch of the Northen Woods.",
+	quanity = 0, speed = 1, value = 250,
+	unique = True
+	)
+
+witch_blood = item("Witch's Blood",
+	"From the Witch of the Western Woods, a small vial of blood.",
+	quanity = 0, speed = 1, value = 50,
+	unique = True
 	)
 	
 macguffin = item("MacGuffin",

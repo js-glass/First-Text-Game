@@ -11,68 +11,7 @@ def rest(player):
 		print("========\nYou rest, but your health is buffed to above full.\n========")
 	else:
 		print("========\nYou rest, but your health is already full\n========")
-	
-def travel_chance(nsew):
-	"""			REDO THIS ENTIRE FUNCTION!			"""
-
-
-
-	chance = random.randint(0, 1000)
-	if chance < 665:
-		time.sleep(1)
-		print("You travel a mile {}".format(nsew))
-	elif chance >= 665 and chance < 765:
-		time.sleep(1)
-		events.chest()
-	elif chance >=765 and chance < 836:
-		time.sleep(1)
-		events.bandit()
-	elif chance >=836 and chance < 918:
-		time.sleep(1)
-		events.corpse()
-	elif chance >= 918 and chance < 953:
-		time.sleep(1)
-		events.orcs()
-	elif chance >= 953 and chance < 959:
-		time.sleep(1)
-		events.doug()
-	elif chance >= 959 and chance < 962:
-		time.sleep(1)
-		events.karl()
-	elif chance >= 962 and chance < 977:
-		time.sleep(1)
-		events.barry()
-	elif chance >= 977 and chance <= 1000:
-		time.sleep(1)
-		events.demon()
-	else:
-		print("==============\nI am not sure what has gone wrong here.\n===============")
-	
-def travel(player, new_x, new_y):
-	if player.x == new_x and player.y == new_y:
-		print("You are already at the new location.")
-	elif player.x != new_x and player.y == new_y:
-		while player.x > new_x:
-			direction = "West"
-			player.x = player.x -1
-			travel_chance(direction)
-		while player.x < new_x:
-			direction = "East"
-			player.x = player.x + 1
-			travel_chance(direction)
-	elif player.x == new_x and player.y != new_y:
-		while player.y > new_y:
-			direction = "South"
-			player.y = player.y -1
-			travel_chance(direction)
-		while player.y < new_y:
-			direction = "North"
-			player.y = player.y + 1
-			travel_chance(direction)
-	elif player.x != new_x and player.y != new_y:
-		print("This should not have happened.")
-			
-	
+					
 def equip(player, item):
 	if item.equippable == True and item in player.inv and len(player.equipped) < 1:
 		print("You have equipped your {}".format(item.name))
