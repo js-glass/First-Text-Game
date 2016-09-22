@@ -38,8 +38,7 @@ def main_2():
 	s(4)
 	print("Several other off duty gaurds grab the woman and drag her out. \nOther patrons look away wanting to not get involved.\n")
 	s(3)
-	
-	
+		
 def main_3():
 	"""	Rightful King	"""
 	
@@ -59,7 +58,6 @@ def main_3():
 	print(char_2 + "No thanks, that will be my last.\n")
 	s(4)
 	print("The barkeep looks around nervously and turns his attention away from the traveler.\n")
-
 	
 def orc_1():
 	"""	Orcish racism	"""
@@ -206,6 +204,10 @@ def connor_1():
 def barry_1():
 	pass
 	
+def dwarf_1();
+	"""Dwarf Racism"""
+	pass
+	
 all = [
  main_1, main_2, main_3,
  orc_1, orc_2,
@@ -220,6 +222,7 @@ all = [
  doug_1,doug_2,
  karl_1,
  connor_1,
- barry_1
+ barry_1,
+ dwarf_1
   ]
 	

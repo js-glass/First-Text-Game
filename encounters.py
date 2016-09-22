@@ -143,8 +143,11 @@ def bandit():
 		events.battle(player, enemies.bandit, bandit)
 		print("You take the Bandit's previous \"earnings\"")
 		earnings = random.randint(50, 200)
-		items.money.add_gold(earnings)
-		print("You have aquired {} Gold Coins!".format(earnings))
+		if len(player.inv) > 0:
+			items.money.add_gold(earnings)
+			print("You have aquired {} Gold Coins!".format(earnings))
+		else:
+			return None
 	elif choice_band == 3:	
 		print("You figure you can get away from this guy, just by running fast.")
 		#time.sleep(1)

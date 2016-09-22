@@ -8,9 +8,8 @@ player = player.hero
 
 def battle(player, opponent, event):
 	""" REDO THIS ENTIRE FUNCTION. BATTLE IS BUGGY(WELL, NOT BUGGY, but just not .... idk... intuitive)	"""
-
-
-
+	"""TERRBILE BATTLE MECHANIC	"""
+	
 	battle_hp = opponent.hp
 	if len(player.equipped) > 0:
 		while player.hp > 0 and battle_hp > 0:
@@ -619,10 +618,57 @@ class Esmith(city_event):
 		else:
 			return "Nothing"
 	
-	def elf_smith():
+	def enter(self):
 		"""	Provides a Unique weapon	"""
+		print("""
+		You enter the forgery of an Elven Weponary Architect.
+		Inside, you see the various materials that comprise weapons flying around the room.
+		Each encircled within a ring of magical aura.
 		
-		pass
+		The Elf looks at you and the floating materials lay down upon the table as he greets you.
+		""")
+		print("Hello, What can I help you with?")
+		print("\n\n	1) Can you make me a weapon that can kill a Dragon?")
+		print("	2) Nothing rigth now. (Leave)")
+		print("\n\n What would you like to do?")
+		choice = int(input())
+		if choice == 1:
+			print("""
+			A weapon to defeat a Dragon? ...hmm... It is droll crafting the same blade over and over.
+			This could be a challange... it would cost you. 800 coins.
+			I can do it for 800 coins.
+			""")
+			seld.sword()
+			
+	def sword(self):
+		if items.money.quanity >799:
+			print("	1) Yes. I have the money now. (800 Gold)")
+			mon = True
+		else:
+			print("	1) I do not have enough for that now.")
+			mon = False
+		print("	2) I need to think it over.")
+		choice = int(input())
+		if choice == 1 and mon == True:
+			self.crafting()
+		elif choice == 1 and mon == False or choice == 2:
+			print("You exit and return to the Town Square.")
+			return None
+			
+			
+	def crafting(self):
+		items.money.sub_gold(800)
+		print("You hand over the money to the Elven Smith and wait.")
+		time.sleep(3)
+		print("Weapon materials float all around you forming a blade.")
+		print("""
+		Here is the blade you requested. It was a pleasure making it.
+		""")
+		player.inv.append(items.elf_sword)
+		items.elf_sword.quanity += 1
+		print("With your new blade, you exit and return to the Town Square.")
+		
+elf = Esmith("Argoth")
 
 class Dragon_E(city_event):
 	
@@ -640,5 +686,11 @@ class Dragon_E(city_event):
 		
 		pass
 
+class witch(city_event):
+	def __init__(self, name):
+		self.name = name
+		
+	def enter(self):
+		pass
 
 all = [shop, brothel, inn, bar, kingT, lunk, dwarf]		
