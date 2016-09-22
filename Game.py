@@ -109,7 +109,6 @@ def travel_choices():
 
 	
 def play():
-	time.sleep(1)
 	print("You are currently at {}\n".format(player.get_loc().name))
 	time.sleep(1)
 	print(	"	1) Travel",
@@ -198,23 +197,16 @@ print("""
 	Welcome to Mitovar!
 	You are in the great city of Mitovar City
 	Speaking to Todd, the King of Mitovar City!
-		""")
-time.sleep(2)
-print("""
 
 	King Todd says to you, a valient hero, 
 	 "I need you to go North to the Dragon's Lair
 	 and defeat the Dragon! There you will find my 
 	 MacGuffin, which I had lost. Retrieve it for me!"
-	 """)
-time.sleep(3)
-print("""
+	 
 	 You may not have the equpment right now to face
 	 such a creature, I recommend going East to 
 	 Sturkes City and exploring a bit first.
-	 """)
-time.sleep(3)
-print("""
+	 
 	 It is probably a good idea to check your inventory 
 	 for a weapon. If you don't have a weapon equipped,
 	 you will have to fight with your bare hands!
@@ -222,3 +214,5 @@ print("""
 """)
 
 play()
+
+encounters.bandit.enter()

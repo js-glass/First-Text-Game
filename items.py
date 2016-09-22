@@ -184,6 +184,18 @@ pock_watch = item("Pocket Watch",
 	unique = True
 	)
 	
+slime = item("Some Slime",
+	"A blob of gross green slime.",
+	quanity = 0, speed = 1, value = 25,
+	unique = True
+	)
+	
+spider_silk = item("Spider Silk",
+	"Taken from a spider butt, this is the most comfy silk ever.",
+	quanity = 0, speed = 1, value = 50,
+	unique = True
+	)	
+	
 pearl = item("Pearl",
 	"This shiny pearl should catch a nice price at the market.",
 	quanity = 0, speed = 1, value = 100,
@@ -335,6 +347,7 @@ money = gold("Gold",
 	quanity = 200, speed =  0, value = 1,
 	unique = False
 	)
-	
+
+
 '''for item in all_items:
 	print(item.inquire())'''

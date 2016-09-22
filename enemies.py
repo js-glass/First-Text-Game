@@ -128,8 +128,3 @@ kingT_reptile = enemy("King Todd",
 	damage = 25,
 	speed = 10
 	)
-
-	
-'''for item in all_enemies:
-	print(item.inquire())
-	print(item.is_alive())'''
